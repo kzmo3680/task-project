@@ -8,11 +8,13 @@ import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     MaterialModule,
@@ -20,10 +22,15 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    
-    BrowserAnimationsModule
+    RouterModule,
+    ToastrModule.forRoot(), // ToastrModule added
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+
+
+    BrowserAnimationsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

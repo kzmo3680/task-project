@@ -1,18 +1,25 @@
 nav {
-    background-color: #ca085a;
-    .navbar-brand {
-        font-size: 27px;
-        font-weight: bold;
-        color: #e3d510!important;
-
+  background-color: #ca085a;
+  .navbar-brand {
+    font-size: 27px;
+    font-weight: bold;
+    color: #e3d510 !important;
+  }
+  a {
+    font-size: 20px;
+    color: #fff !important;
+    //padding: 7px 20px;
+    &.active {
+      background-color: #910340;
+      color: #fff;
     }
-    a {
-        font-size: 20px;
-        color: #FFF!important;
-        //padding: 7px 20px;  
-        &.active  {
-            background-color: #910340;
-            color: #FFF;
-        }
-    }
+  }
 }
+
+// .spinner-text {
+//   margin-top: 20px;
+//   font-size: 16px;
+//   font-weight: 500;
+//   color: #495057;
+//   letter-spacing: 0.5px;
+// }

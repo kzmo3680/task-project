@@ -5,6 +5,7 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthRoutingModule } from './auth-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -18,7 +19,8 @@ import { AuthRoutingModule } from './auth-routing.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+        NgxSpinnerModule
   ]
 })
 export class AuthModule { }
