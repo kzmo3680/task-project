@@ -40,22 +40,34 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginForm.value);
+    
+    // if (this.loginForm.invalid) {
+    //   console.log("invalid");
+      
+    //   return;
+    // }
+
     this.spinner.show();
-    this.service.login(this.loginForm.value).subscribe(
-      (res) => {
+
+    this.service.login(this.loginForm.value).subscribe({
+      next: (res) => {
         console.log(res);
-        this.toastr.success('Hello world!', 'Toastr fun!');
+
+        // Save token if your backend returns one
+        // localStorage.setItem('token', res.token);
+
+        this.toastr.success('Login successful!');
         this.router.navigate(['/tasks']);
-
-
-        this.spinner.hide();
-        
       },
-      (error) => {
-        this.spinner.hide();
-        this.toastr.error('Your Not Authenitcated !');
+      error: (error) => {
+        console.error(error);
+        this.toastr.error(error.error?.message || 'You are not authenticated!');
       },
-    );
+      complete: () => {
+        this.spinner.hide();
+      },
+    });
   }
+
+
 }

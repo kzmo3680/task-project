@@ -25,8 +25,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
     RouterModule,
     ToastrModule.forRoot(), // ToastrModule added
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
-
-
     BrowserAnimationsModule,
   ],
   providers: [
