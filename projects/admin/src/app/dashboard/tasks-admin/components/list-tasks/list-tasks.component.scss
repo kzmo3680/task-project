@@ -9,6 +9,19 @@ button {
     }
 }
 
+table{
+    tbody{
+        tr{
+            td{
+                img{
+                    width: 100px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
 :host ::ng-deep {
     table {
         thead {

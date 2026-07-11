@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { CoreModule } from './core/core.module';
 
 
 
@@ -26,6 +27,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ToastrModule.forRoot(), // ToastrModule added
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     BrowserAnimationsModule,
+    CoreModule
   ],
   providers: [
   ],

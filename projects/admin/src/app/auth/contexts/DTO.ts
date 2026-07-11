@@ -4,3 +4,9 @@ export interface Login
     password : string,
     role : string
 }
+
+export interface LgoinResponse 
+{
+    token : string,
+    userId : string,
+}

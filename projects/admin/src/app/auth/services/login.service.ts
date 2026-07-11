@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../contexts/DTO';
+import { environment } from 'projects/admin/src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http : HttpClient ) { }
-
-  login(model : Login){
-    return this.http.post(`http://localhost:8080/auth/login` , model);
+  login(model: Login) {
+    return this.http.post(
+      `${environment.baseApi.replace(`tasks`, 'auth')}/login`,
+      model,
+    );
   }
-
 }

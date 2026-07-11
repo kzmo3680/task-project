@@ -4,6 +4,7 @@ import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LgoinResponse } from '../../contexts/DTO';
 
 @Component({
   selector: 'app-login',
@@ -50,9 +51,9 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
 
     this.service.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: (res:any) => {
 
+        localStorage.setItem('token' , res.token)
         // Save token if your backend returns one
         // localStorage.setItem('token', res.token);
 
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit {
       error: (error) => {
         console.error(error);
         this.toastr.error(error.error?.message || 'You are not authenticated!');
+        this.spinner.hide();
       },
       complete: () => {
         this.spinner.hide();
