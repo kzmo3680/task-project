@@ -8,6 +8,7 @@ import {
 import { TasksService } from '../../services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-add-task',
@@ -35,6 +36,8 @@ export class AddTaskComponent implements OnInit {
 
   newTaskForm!: FormGroup;
 
+  formValues: any;
+
   imgPath: string = '';
 
   selectImageHandler(event: any) {
@@ -49,22 +52,22 @@ export class AddTaskComponent implements OnInit {
   }
 
   createForm() {
-
     const date = new Date(this.data?.deadline);
 
-    this.imgPath = this.data?.image ;
+    this.imgPath = this.data?.image;
 
     this.newTaskForm = this.fb.group({
-      title: [this.data?.title   || ``, Validators.required],
+      title: [this.data?.title || ``, Validators.required],
       userId: [this.data?.userId._id || ``, Validators.required],
       image: [this.data?.image || ``, Validators.required],
       description: [this.data?.description || ``, Validators.required],
       deadline: [
-          this.data ?  new Date(this.data?.deadline)?.toISOString() : '', 
+        this.data ? new Date(this.data?.deadline)?.toISOString() : '',
         Validators.required,
       ],
     });
 
+    this.formValues = this.newTaskForm.value;
   }
 
   createTask() {
@@ -94,34 +97,66 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  updateTask(){
+  updateTask() {
     this.spinner.show();
-    let model: any  = this.prepareFromData();
+    let model: any = this.prepareFromData();
 
-    console.log(model)
-    this.service.updateTask(this.data._id,model ).subscribe({
-      next : ()=>{
+    console.log(model);
+    this.service.updateTask(this.data._id, model).subscribe({
+      next: () => {
         this.toaster.success(`Task Was Updated`);
         this.dialog.close(true);
       },
-      error : (err)=>{
-        this.toaster.error(`something error please try again!`)
+      error: (err) => {
+        this.toaster.error(`something error please try again!`);
       },
-      complete : ()=>{
-        this.spinner.hide()
-      }
-    })
+      complete: () => {
+        this.spinner.hide();
+      },
+    });
   }
 
-  prepareFromData(){
-
+  prepareFromData() {
     let formData = new FormData();
 
-    Object.entries(this.newTaskForm.value).forEach(([key , value] : any)=>{
-      formData.append(key , value);
-    })
+    Object.entries(this.newTaskForm.value).forEach(([key, value]: any) => {
+      formData.append(key, value);
+    });
 
     return formData;
   }
 
+  close() {
+    let hasChanges = false;
+    Object.keys(this.formValues).forEach((item) => {
+
+      if (this.formValues[item] != this.newTaskForm.value[item]) {
+        hasChanges = true;
+      }
+
+      
+    });
+
+    if (hasChanges) {
+        //
+
+        console.log("Has Change True")
+
+        const dialogRef = this.matDialog.open(ConfirmationComponent, {
+          width: `750px`,
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result == true) {
+            
+          }
+        });
+
+        //
+      }
+      else{
+        console.log("Has Change False")
+        this.dialog.close();
+      }
+  }
 }

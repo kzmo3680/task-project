@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'projects/admin/src/environments/environment';
 
@@ -8,8 +8,16 @@ import { environment } from 'projects/admin/src/environments/environment';
 export class TasksService {
   constructor(private http: HttpClient) {}
 
-  getAllTasks() {
-    return this.http.get(`${environment.baseApi}/all-tasks?page=1&limit=10`);
+  getAllTasks(filter : any) {
+
+    let params = new HttpParams();
+
+    if(filter.keyword)
+    {
+      params = params.append(`keyword` , filter.keyword);
+    }
+
+    return this.http.get(`${environment.baseApi}/all-tasks?page=1&limit=10`,{params});
   }
 
   createTask(model: any) {

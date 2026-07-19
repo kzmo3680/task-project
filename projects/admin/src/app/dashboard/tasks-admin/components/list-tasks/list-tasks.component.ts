@@ -49,7 +49,7 @@ export class ListTasksComponent implements OnInit {
 
       this.spinner.show();
 
-       this.services.getAllTasks().subscribe({
+       this.services.getAllTasks(this.filteration).subscribe({
         next : (res : any)=>{
           this.dataSource = this.mappingTasks(res.tasks);
         },
@@ -72,7 +72,18 @@ export class ListTasksComponent implements OnInit {
     return newTakss ; 
   }
 
+  filteration : any = {};
 
+  timeOutId : any ;
+
+  search(event : any)
+  {
+    this.filteration[`keyword`] = event.target.value;
+    clearTimeout(this.timeOutId)
+     this.timeOutId =  setTimeout(()=>{
+      this.getAllTasks()
+    },1000)
+  }
 
   addTask() {
     const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -92,6 +103,7 @@ export class ListTasksComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width:`750px`,
       data : element,
+      disableClose : true,  
       id 
     });
 
